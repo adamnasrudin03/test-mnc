@@ -3,7 +3,6 @@ package controller
 import (
 	"net/http"
 
-	"github.com/adamnasrudin03/go-template/pkg/helpers"
 	"github.com/adamnasrudin03/go-test-mnc/app/dto"
 	"github.com/adamnasrudin03/go-test-mnc/app/service"
 	"github.com/adamnasrudin03/go-test-mnc/pkg/helpers/response_mapper"
@@ -40,7 +39,7 @@ func (c *UserHandler) Register(ctx *gin.Context) {
 	err = ctx.ShouldBindJSON(&input)
 	if err != nil {
 		c.Logger.Errorf("%v error bind json: %v ", opName, err)
-		helpers.RenderJSON(ctx.Writer, http.StatusBadRequest, helpers.ErrGetRequest())
+		ctx.JSON(http.StatusBadRequest, response_mapper.APIResponse("failed get request data", http.StatusBadRequest, nil))
 		return
 	}
 
